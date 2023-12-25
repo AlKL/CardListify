@@ -17,5 +17,4 @@ Steps
 6. Call the addItem/addItems API with the variables passed as parameters
 
 Todo:
-- Get eBay Auth
-- Test
+-
