@@ -1,5 +1,6 @@
 # CardListify
-
+Run with
+python3 ./src/app.py
 
 Features:
 - SEO
