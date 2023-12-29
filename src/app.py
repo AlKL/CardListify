@@ -9,7 +9,7 @@ api = Trading(config_file="ebay.yaml", domain="api.ebay.com", warnings=False)
 
 # #################################
 # # Set your desired file name here
-filename = 'ashura.csv'
+filename = 'list_1.csv'
 # #################################
 
 # # Construct the full file path
