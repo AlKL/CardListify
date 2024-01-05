@@ -39,7 +39,7 @@ with open(spreadsheetName, newline='') as csvfile:
                 "PictureName": card_name + " Picture"
             }
 
-            filepath = "images/" + img_path
+            filepath = "images/" + img_path + ".png"
             files = {'file': ('EbayImage', open(filepath, 'rb'))}
             img_response = api.execute('UploadSiteHostedPictures', pictureData, files=files)
             response_dict = img_response.dict()
@@ -48,57 +48,71 @@ with open(spreadsheetName, newline='') as csvfile:
             # pprint(imgUrl)
 
             myitem = {
-                    "Item": {
-                        "Title": f"{card_name} - {condition} - {rarity}{' ' + edition if edition != 'Unlimited' else ''} - {set_abbrv} - YuGiOh",
-                        "Description": "Shipped quickly within 24 hours and shipped safely with a top loader. Feel free to ask any questions!",
-                        'PrimaryCategory': { 'CategoryID': '183454' },
-                        "StartPrice": price,
-                        "CategoryMappingAllowed": "true",
-                        "Country": "CA",
-                        "ConditionDescriptors": {
-                            "ConditionDescriptor": {
-                                'Name': '40001',
-                                'Value': '400010'
-                            }
-                        },
-                        "ConditionID": "4000",
-                        "Currency": "CAD",
-                        "DispatchTimeMax": "2",
-                        "ListingDuration": "GTC",
-                        "ListingType": "FixedPriceItem",
-                        'Quantity': quantity,
-                        'ReturnPolicy': {
-                            'InternationalReturnsAcceptedOption': 'ReturnsNotAccepted',
-                            'ReturnsAccepted': 'Returns Not Accepted',
-                            'ReturnsAcceptedOption': 'ReturnsNotAccepted'
-                        },
-                        "ShippingDetails": [
-                        {
-                            "ShippingServiceOptions": {
-                                "FreeShipping": "true",
-                                "ShippingService": "CA_PostLettermail",
-                                "ShippingServiceCost": "0"
-                            }
-                        }],
-                        "PictureDetails": {"PictureURL": imgUrl}, # frontpic PLACEHOLDER
-                        "PostalCode": "M3N2B1",
-                        "ItemSpecifics": {
-                            "NameValueList": [
-                                {'Name': 'Game', 'Value': 'Yu-Gi-Oh! TCG'},
-                                {'Name': 'Rarity', 'Value': rarity },
-                                {'Name': 'Card Size', 'Value': 'Standard'},
-                                {'Name': 'Set', 'Value': card_set},
-                                {'Name': 'Features', 'Value': edition },
-                                {'Name': 'Manufacturer', 'Value': 'Konami'},
-                                {'Name': 'Material', 'Value': 'Card Stock'},
-                                {'Name': 'Age Level', 'Value': '6+'},
-                            ]
+                "Item": {
+                    "Title": f"{card_name} - {condition} - {rarity}{' ' + edition if edition != 'Unlimited' else ''} - {set_abbrv} - YuGiOh",
+                    "Description": "Shipped quickly within 24 hours and shipped safely with a top loader. Feedback is greatly appreciated. Feel free to ask any questions!",
+                    'PrimaryCategory': { 'CategoryID': '183454' },
+                    "StartPrice": price,
+                    "CategoryMappingAllowed": "true",
+                    "Country": "CA",
+                    "ConditionDescriptors": {
+                        "ConditionDescriptor": {
+                            'Name': '40001',
+                            'Value': '400010'
                         }
+                    },
+                    "ConditionID": "4000",
+                    "Currency": "CAD",
+                    "DispatchTimeMax": "2",
+                    "ListingDuration": "GTC",
+                    "ListingType": "FixedPriceItem",
+                    'Quantity': quantity,
+                    'ReturnPolicy': {
+                        'InternationalReturnsAcceptedOption': 'ReturnsNotAccepted',
+                        'ReturnsAccepted': 'Returns Not Accepted',
+                        'ReturnsAcceptedOption': 'ReturnsNotAccepted'
+                    },
+                    'ShipToLocations': ['US', 'Europe'],
+                    "ShippingDetails": {
+                        "ApplyShippingDiscount": "false",
+                        "ShippingType": "Flat",
+                        "InternationalShippingServiceOption": [{
+                            "ShipToLocation": "US",
+                            "ShippingService": "CA_PostUSALetterPost",
+                            "ShippingServiceCost": "1.5",
+                            "ShippingServicePriority": "1"
+                        },
+                        {
+                            "ShipToLocation": ["Europe", "JP"],
+                            "ShippingService": "CA_PostUSALetterPost",
+                            "ShippingServiceCost": "3",
+                            "ShippingServicePriority": "2"
+                        }
+                        ],
+                        "ShippingServiceOptions": {
+                            "FreeShipping": "true",
+                            "ShippingService": "CA_PostLettermail",
+                            "ShippingServiceCost": "0"
+                        }
+                    },
+                    "PictureDetails": {"PictureURL": imgUrl},
+                    "PostalCode": "M3N2B1",
+                    "ItemSpecifics": {
+                        "NameValueList": [
+                            {'Name': 'Game', 'Value': 'Yu-Gi-Oh! TCG'},
+                            {'Name': 'Rarity', 'Value': rarity },
+                            {'Name': 'Card Size', 'Value': 'Standard'},
+                            {'Name': 'Set', 'Value': card_set},
+                            {'Name': 'Features', 'Value': edition },
+                            {'Name': 'Manufacturer', 'Value': 'Konami'},
+                            {'Name': 'Material', 'Value': 'Card Stock'},
+                            {'Name': 'Age Level', 'Value': '6+'},
+                        ]
                     }
                 }
-            # theirItem = "<ItemID>225754961118</ItemID>"
+            }
+            # theirItem = "<ItemID>186239060399</ItemID>"
             # response = api.execute("GetItem", theirItem)
-
             response = api.execute("AddItem", myitem)
             pprint(response.dict())
         except ConnectionError as e:
