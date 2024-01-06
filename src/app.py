@@ -16,6 +16,9 @@ filename = 'list_1.csv'
 spreadsheetPath = './spreadsheets'
 spreadsheetName = os.path.join(spreadsheetPath, filename)
 
+pprint("REMEMBER TO COPY ITEMIDS")
+pprint("#########################################################")
+
 # # Open the CSV file using the variable
 with open(spreadsheetName, newline='') as csvfile:
     # Create a CSV reader object
@@ -27,10 +30,10 @@ with open(spreadsheetName, newline='') as csvfile:
     # Iterate through each row of the CSV file
     for row in csv_reader:
         # Assign each column's data to a variable
-        card_name, img_path, condition, rarity, edition, price, quantity, card_set, set_abbrv = row
+        card_name, img_path, condition, rarity, edition, price, quantity, card_set, set_abbrv, item_id = row
 
         # Print the variables for each row
-        print(f"card_name: {card_name}, img_path: {img_path}, condition: {condition}, rarity: {rarity}, edition: {edition}, price: {price}, quantity: {quantity}, card_set: {card_set}, set_abbrv: {set_abbrv}")
+        # print(f"card_name: {card_name}, img_path: {img_path}, condition: {condition}, rarity: {rarity}, edition: {edition}, price: {price}, quantity: {quantity}, card_set: {card_set}, set_abbrv: {set_abbrv}")
 
         try:
             # Upload image
@@ -114,6 +117,13 @@ with open(spreadsheetName, newline='') as csvfile:
             # theirItem = "<ItemID>186239060399</ItemID>"
             # response = api.execute("GetItem", theirItem)
             response = api.execute("AddItem", myitem)
-            pprint(response.dict())
+            # pprint(response.dict())
+            add_item_dict = response.dict()
+            # pprint(add_item_dict)
+            item_id = add_item_dict['ItemID']
+            pprint(int(item_id))
+
         except ConnectionError as e:
             print("Error:", e)
+
+pprint("#########################################################")

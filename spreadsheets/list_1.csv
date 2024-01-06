@@ -1,2 +1,3 @@
-card_name,img_path,condition,rarity,edition,price,quantity,card_set,set_abbrv
-Ashura King,ashura_king,Mint NM,Secret Rare,Unlimited,3.8,2,Power of The Elements,POTE-EN048
+card_name,img_path,condition,rarity,edition,price,quantity,card_set,set_abbrv,item_id
+Ashura King,ashura_king,Mint NM,Secret Rare,Unlimited,3.8,2,Power of The Elements,POTE-EN048,
+XAshura King,ashura_king,Mint NM,Secret Rare,Unlimited,3.8,2,Power of The Elements,POTE-EN048,
