@@ -9,7 +9,7 @@ api = Trading(config_file="ebay.yaml", domain="api.ebay.com", warnings=False)
 
 # #################################
 # # Set your desired file name here
-filename = 'list_1.csv'
+filename = 'list_3.csv'
 # #################################
 
 # # Construct the full file path
@@ -50,9 +50,11 @@ with open(spreadsheetName, newline='') as csvfile:
             imgUrl = response_dict['SiteHostedPictureDetails']['FullURL']
             # pprint(imgUrl)
 
+            print(f"{card_name} - {condition}{' '}{'QC Secret Rare' if rarity == 'Quarter Century Secret Rare' else rarity}{' ' + edition if edition != 'Unlimited' else ''} - {set_abbrv} - YuGiOh")
+
             myitem = {
                 "Item": {
-                    "Title": f"{card_name} - {condition} - {rarity}{' ' + edition if edition != 'Unlimited' else ''} - {set_abbrv} - YuGiOh",
+                    "Title": f"{card_name} - {condition}{' '}{'QC Secret Rare' if rarity == 'Quarter Century Secret Rare' else rarity}{' ' + edition if edition != 'Unlimited' else ''} - {set_abbrv} - YuGiOh",
                     "Description": "Shipped quickly within 24 hours and shipped safely with a top loader. Feedback is greatly appreciated. Feel free to ask any questions!",
                     'PrimaryCategory': { 'CategoryID': '183454' },
                     "StartPrice": price,
